@@ -1,0 +1,22 @@
+{
+  "name": "hexo-mtg-card-jp",
+  "version": "0.0.1",
+  "description": "Auto-markup M;tG card name.",
+  "main": "index.js",
+  "scripts": {
+    "test": "exit 0"
+  },
+  "keywords": [
+    "blog",
+    "website",
+    "hexo",
+    "mtg"
+  ],
+  "author": "naokiy",
+  "license": "ISC",
+  "dependencies": {
+    "sync-request": "*",
+    "ejs": "*"
+  },
+  "repository": "https://github.com/naokiy/hexo-mtg-card-jp"
+}
