@@ -8,12 +8,12 @@ This plugin use mtgjson.com .
 
 ## How to use
 
-Modify card.ejs to define format.
+Modify `card.ejs` to define format.
 
 card.xxx is card data from mtgjson.com ( http://mtgjson.com/ ).
 content is original card name from your post.
 
-```card.ejs
+```ejs
 <span is="mtg_card"
 <% if (card.types) { %> mtg_types="<%- card.types.join(' ').toLowerCase() %>"<% } -%>
 <% if (card.colors) { %> mtg_colors="<%- card.colors.join(' ').toLowerCase() %>"<% } -%>
@@ -23,7 +23,7 @@ content is original card name from your post.
 
 Card names in your post like... 
 
-```example_post.md
+```markdown
 《鐘突きのズルゴ/Zurgo Bellstriker(DTK)》
 ```
 
@@ -35,13 +35,13 @@ will be formatted like...
 
 ## install
 
-```sh
+```shell
 $ npm install hexo-mtg-card-jp --save
 ```
 
-And add
+And add _config.yml
 
-```_config.yml
+```yaml
 plugins:
 - hexo-mtg-card-jp
 ```
