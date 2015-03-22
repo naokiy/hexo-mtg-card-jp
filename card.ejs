@@ -1,0 +1,5 @@
+<span is="mtg_card"
+<% if (card.types) { %> mtg_types="<%- card.types.join(' ').toLowerCase() %>"<% } -%>
+<% if (card.colors) { %> mtg_colors="<%- card.colors.join(' ').toLowerCase() %>"<% } -%>
+<% if (card.multiverseid) { %> mtg_multiverseid="<%- card.multiverseid %>"<% } -%>
+><%- content %></span>
