@@ -8,7 +8,7 @@ This plugin use mtgjson.com .
 
 ## How to use
 
-Modify `card.ejs` to define format.
+Modify `plugins/mtg-card-jp/card.ejs` in your theme directory to define format.
 
 card.xxx is card data from mtgjson.com ( http://mtgjson.com/ ).
 content is original card name from your post.
@@ -21,7 +21,7 @@ content is original card name from your post.
 ><%- content %></span>
 ```
 
-Card names in your post like... 
+Card names in your post like...
 
 ```markdown
 《鐘突きのズルゴ/Zurgo Bellstriker(DTK)》
