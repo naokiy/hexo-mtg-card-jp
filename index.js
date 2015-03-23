@@ -11,9 +11,11 @@ var cardTmpl = ejs.compile(
   fs.readFileSync(cardTmplSrc, 'utf8'),
   {});
 
+var cardNameRegex = /《([^/(》]*)(\/[^(》]*)?(?:\(([^)]+)\))?》/g
+
 hexo.extend.filter.register('before_post_render', function(data) {
   data.content = data.content.replace(
-    /《([^/(》]*)(\/[^(》]*)?(?:\(([^)]+)\))?》/g,
+    cardNameRegex,
     function(content, cardNameA, cardNameB, cardSet) {
       var enCardName = (cardNameB? cardNameB.substring(1): cardNameA);
 
@@ -26,3 +28,25 @@ hexo.extend.filter.register('before_post_render', function(data) {
       return cardTmpl({card: card, content: content}).replace(/(?:\r|\n)/g, '');
     });
 });
+
+hexo.extend.tag.register('mtg_card', function(args) {
+  var source = args.join(' ');
+  var enCardName, cardSet;
+  source.replace(cardNameRegex, (content, cardNameA, cardNameB, cardSet) {
+    var enCardName = (cardNameB? cardNameB.substring(1): cardNameA);
+
+    if (!enCardName || !cardSet) {
+      return '';
+    }
+
+    var card = requestCard(enCardName, cardSet);
+
+    if (!card || !card.multiverseid) {
+      return '';
+    }
+
+    return (
+      '<img class="mtg_card" src="' + imageUrl + '"/>'
+    );
+  });
+})
