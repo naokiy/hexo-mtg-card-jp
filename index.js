@@ -5,7 +5,7 @@ var request = require('sync-request'),
 
 var cardTmplThemeSrc = pathFn.join(hexo.theme_dir, 'plugins/mtg-card-jp/card.ejs');
 var cardTmplOriginalSrc = pathFn.join(__dirname, './card.ejs');
-var cardTmpl = pathFn.existsSync(cardTmplThemeSrc)? cardTmplThemeSrc: cardTmplOriginalSrc;
+var cardTmplSrc = (fs.existsSync(cardTmplThemeSrc)? cardTmplThemeSrc: cardTmplOriginalSrc);
 
 var cardTmpl = ejs.compile(
   fs.readFileSync(cardTmplSrc, 'utf8'),
