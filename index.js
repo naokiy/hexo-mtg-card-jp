@@ -32,7 +32,9 @@ hexo.extend.filter.register('before_post_render', function(data) {
 hexo.extend.tag.register('mtg_card', function(args) {
   var source = args.join(' ');
   var enCardName, cardSet;
-  source.replace(cardNameRegex, (content, cardNameA, cardNameB, cardSet) {
+  var result;
+
+  source.replace(cardNameRegex, function(content, cardNameA, cardNameB, cardSet) {
     var enCardName = (cardNameB? cardNameB.substring(1): cardNameA);
 
     if (!enCardName || !cardSet) {
@@ -45,8 +47,12 @@ hexo.extend.tag.register('mtg_card', function(args) {
       return '';
     }
 
-    return (
-      '<img class="mtg_card" src="' + imageUrl + '"/>'
-    );
+    var imageUrl = 'http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=' + card.multiverseid + '&type=card';
+
+    result = '<img class="mtg_card" src="' + imageUrl + '"/>';
+
+    return '';
   });
+
+  return result;
 })
