@@ -8,10 +8,11 @@ This plugin use mtgjson.com .
 
 ## How to use
 
+### Edit template
+
 Modify `plugins/mtg-card-jp/card.ejs` in your theme directory to define format.
 
-card.xxx is card data from mtgjson.com ( http://mtgjson.com/ ).
-content is original card name from your post.
+For example...
 
 ```ejs
 <span is="mtg_card"
@@ -20,14 +21,20 @@ content is original card name from your post.
 <% if (card.multiverseid) { %> mtg_multiverseid="<%- card.multiverseid %>"<% } -%>
 ><%- content %></span>
 ```
+card.xxx is card data from mtgjson.com ( http://mtgjson.com/ ).
+content is original card name from your post.
 
-Card names in your post like...
+### Write card name into your post
+
+For example...
 
 ```markdown
 《鐘突きのズルゴ/Zurgo Bellstriker(DTK)》
 ```
 
-will be formatted like...
+### This plugins format that card name.
+
+The example will be translated as...  
 
 ```html
 <span is="mtg_card" mtg_types="creature" mtg_colors="red" mtg_multiverseid="394748">《鐘突きのズルゴ/Zurgo Bellstriker(DTK)》</span>
