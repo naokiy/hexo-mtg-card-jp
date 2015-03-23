@@ -1,7 +1,7 @@
-var request = require('sync-request'),
-    fs      = require('fs'),
-    pathFn  = require('path'),
-    ejs     = require('ejs');
+var fs          = require('fs'),
+    pathFn      = require('path'),
+    ejs         = require('ejs'),
+    requestCard = require('mtg-card-sync');
 
 var cardTmplThemeSrc = pathFn.join(hexo.theme_dir, 'plugins/mtg-card-jp/card.ejs');
 var cardTmplOriginalSrc = pathFn.join(__dirname, './card.ejs');
@@ -10,41 +10,6 @@ var cardTmplSrc = (fs.existsSync(cardTmplThemeSrc)? cardTmplThemeSrc: cardTmplOr
 var cardTmpl = ejs.compile(
   fs.readFileSync(cardTmplSrc, 'utf8'),
   {});
-
-var allSets, allCards;
-
-var loadAllSets = function() {
-  var URL = 'http://mtgjson.com/json/AllSets.json';
-  allSets = JSON.parse(request('GET', URL, {json: true, cache: 'file'}).getBody().toString());
-}
-
-var loadAllCards = function() {
-  var URL = 'http://mtgjson.com/json/AllCards.json';
-  allCards = JSON.parse(request('GET', URL, {json: true, cache: 'file'}).getBody().toString());
-}
-
-// for async filtering
-loadAllSets();
-loadAllCards();
-
-var getCardInfo = function(cardName, cardSet) {
-  if (!cardName) {
-    return {};
-  }
-  if (cardSet && allSets && allSets[cardSet]) {
-    var cards = allSets[cardSet].cards;
-    var length = cards.length;
-    for (var i = 0; i < length; i++) {
-      if (cards[i].name === cardName) {
-        return cards[i];
-      }
-    }
-  }
-  if (allCards && allCards[cardName]) {
-    return card[enCardName];
-  }
-  return {};
-};
 
 hexo.extend.filter.register('before_post_render', function(data) {
   data.content = data.content.replace(
@@ -56,8 +21,8 @@ hexo.extend.filter.register('before_post_render', function(data) {
         return content;
       }
 
-      return cardTmpl(
-        {card: getCardInfo(enCardName, cardSet), content: content})
-        .replace(/(?:\r|\n)/g, '');
+      var card = requestCard(enCardName, cardSet) || {};
+
+      return cardTmpl({card: card, content: content}).replace(/(?:\r|\n)/g, '');
     });
 });
