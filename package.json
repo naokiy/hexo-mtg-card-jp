@@ -1,6 +1,6 @@
 {
   "name": "hexo-mtg-card-jp",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Auto-markup M;tG card name.",
   "main": "index.js",
   "scripts": {
